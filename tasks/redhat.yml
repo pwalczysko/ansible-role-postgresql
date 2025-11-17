@@ -1,6 +1,16 @@
 ---
 # tasks file for ome.postgresql rocky
 
+- name: openssl | download rpm
+  become: true
+  ansible.builtin.dnf:
+    update_cache: true
+    name:
+      https://centos.pkgs.org/9-stream/centos-baseos-x86_64/openssl-libs-3.5.1-6.el9.x86_64.rpm
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+
 - name: postgres | install server packages
   become: true
   ansible.builtin.dnf:
